@@ -1,5 +1,5 @@
-﻿using System;
-using Akka.Actor;
+﻿using Akka.Actor;
+using System;
 
 namespace WinTail
 {
@@ -11,7 +11,13 @@ namespace WinTail
     {
         protected override void OnReceive(object message)
         {
-            if (message is Messages.InputError)
+            if (message is Messages.NullInputError)
+            {
+                var msg = message as Messages.NullInputError;
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine(msg.Reason);
+            }
+            else if (message is Messages.InputError)
             {
                 var msg = message as Messages.InputError;
                 Console.ForegroundColor = ConsoleColor.Red;
